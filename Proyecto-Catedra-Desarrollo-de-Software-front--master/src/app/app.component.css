@@ -1,0 +1,11 @@
+.product-card {
+    border: 2px solid green;
+    max-width: 400px;
+  }
+  
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
