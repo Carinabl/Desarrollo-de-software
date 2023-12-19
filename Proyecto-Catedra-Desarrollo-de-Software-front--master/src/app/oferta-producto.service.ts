@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Producto } from './compPrincipal/interfaces/Producto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfertaProductoService {
 
-  private productoSource = new BehaviorSubject<any>(null);
-  producto$ = this.productoSource.asObservable();
+  private productoSeleccionadoSource = new BehaviorSubject<Producto | null>(null);
+  productoSeleccionado$ = this.productoSeleccionadoSource.asObservable();
 
-  enviarProducto(producto: any) {
-    this.productoSource.next(producto);
+  enviarProductoSeleccionado(producto: Producto): void {
+    this.productoSeleccionadoSource.next(producto);
   }
 }

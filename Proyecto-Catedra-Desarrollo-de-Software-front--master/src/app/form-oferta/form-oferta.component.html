@@ -31,7 +31,18 @@
                 <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
             </div>
           </div> 
+          <div class="col-12">
+            <label for="formGroupExampleInput2" class="form-label">Descripcion</label>
+            <div class="input-group">
+                <textarea class="form-control" placeholder="descripcion" name="dp"></textarea>
+            </div>
+          </div> 
         </div>
+        <div class="col-12">
+          <!-- Enlace que redirige a la página de productos -->
+          <a routerLink="/listaProductos">Seleccionar Producto</a>
+        </div>
+
         </form>
       
         <div class="modal-footer">

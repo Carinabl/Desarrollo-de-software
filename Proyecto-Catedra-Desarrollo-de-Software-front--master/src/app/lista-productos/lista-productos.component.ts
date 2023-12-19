@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductosService } from '../compPrincipal/producto/productos.service'; 
 import { Producto } from '../compPrincipal/interfaces/Producto';
 import { HttpParams } from '@angular/common/http';
+import { OfertaProductoService } from '../oferta-producto.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ListaProductosComponent {
   productoSeleccionado: Producto= { id: 0, nombre: '', descripcion: '' };
 
 
-  constructor(private productoService: ProductosService ) {}
+  constructor(private productoService: ProductosService, private ofertaProductoService: OfertaProductoService) {}
   
   ngOnInit() {
     //consigue la lista de productos para mostrar en la tabla
@@ -61,6 +62,9 @@ export class ListaProductosComponent {
     });
   }
 
-
+  seleccionarProducto(producto: Producto): void {
+    // Almacena el producto seleccionado para su posterior uso en la creación de la oferta
+    this.ofertaProductoService.enviarProductoSeleccionado(producto);
+  }
   
 }
