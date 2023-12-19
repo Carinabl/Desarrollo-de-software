@@ -1,0 +1,94 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+    Boton modal Perfil
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear Perfil</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="frmPerfil" (submit)="onSubmit()" id="frmPerfil">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Proveedor</label>
+            <input type="text" formControlName="nombre"  class="form-control" id="nombre" placeholder="Ingrese nombre del proveedor">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['nombre'].invalid && frmPerfil.controls['nombre'].touched">
+             <div *ngIf="frmPerfil.controls['nombre']?.hasError('required')">El nombre es obligatorio</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido Proveedor</label>
+            <input type="text" formControlName="apellido"  class="form-control" id="apellido" placeholder="Ingrese apellido del proveedor">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['apellido'].invalid && frmPerfil.controls['apellido'].touched">
+             <div *ngIf="frmPerfil.controls['apellido']?.hasError('required')">El apellido es obligatorio</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="dni" class="form-label">DNI</label>
+            <input type="text" formControlName="dni" class="form-control" id="dni" placeholder="Ingrese el dni sin puntos">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['dni'].invalid && frmPerfil.controls['dni'].touched">
+              <div *ngIf="frmPerfil.controls['dni']?.hasError('required')">El dni es obligatorio</div>
+              <div *ngIf="frmPerfil.controls['dni']?.hasError('pattern')">El dni debe tener al menos 8 números</div> 
+             </div>
+          </div>
+          <div class="mb-3">
+            <label for="cuit" class="form-label">CUIL</label>
+            <input type="text" formControlName="cuit" class="form-control" id="cuit" placeholder="Ingrese el cuil sin epsacios ni guiones">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['cuit'].invalid && frmPerfil.controls['cuit'].touched">
+              <div *ngIf="frmPerfil.controls['cuit']?.hasError('required')">El cuil es obligatorio</div>
+              <div *ngIf="frmPerfil.controls['cuit']?.hasError('pattern')">El cuil debe tener al menos 11 números</div> 
+             </div>
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" formControlName="direccion" class="form-control" id="direccion" placeholder="Ingrese una dirección">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['direccion'].invalid && frmPerfil.controls['direccion'].touched">
+              <div *ngIf="frmPerfil.controls['direccion']?.hasError('required')">La dirección es obligatoria</div>
+             </div>
+          </div>
+        
+        </div>
+      </form>
+      {{frmPerfil.status}}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" form="frmPerfil" class="btn btn-primary" [disabled]="!frmPerfil.valid" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- 2do Modal -->
+  <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Asociar cuenta bancaria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="frmPerfil" (submit)="onSubmit()" id="frmPerfil">
+        <div class="modal-body">
+          
+          <div class="mb-3">
+            <label for="codigo" class="form-label">CBU</label>
+            <input type="text" formControlName="cbu" class="form-control" id="cbu" placeholder="Ingrese los 22 dígitos del cbu">
+            <div class="alert alert-danger" *ngIf="frmPerfil.controls['cbu'].invalid && frmPerfil.controls['cbu'].touched">
+              <div *ngIf="frmPerfil.controls['codigo']?.hasError('required')">El cbu es obligatorio</div>
+              <div *ngIf="frmPerfil.controls['codigo']?.hasError('pattern')">El cbu debe tener 22 números</div> 
+             </div>
+          </div>
+        </div>
+      </form>
+      {{frmPerfil.status}}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Completar más tarde</button>
+          <button type="submit" form="frmPerfil" class="btn btn-primary" [disabled]="!frmPerfil.valid">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
