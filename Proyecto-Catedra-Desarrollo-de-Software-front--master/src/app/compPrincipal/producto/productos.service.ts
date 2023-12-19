@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-//import { ListaProductosComponent } from './lista-productos/lista-productos.component';
 import { ProductoComponent } from './producto.component';
+import { Producto } from '../interfaces/Producto';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,40 +10,38 @@ import { ProductoComponent } from './producto.component';
 export class ProductosService {
 
   productoComponent: ProductoComponent [] = [];
-  ultimoId: number=0;
+  private productos: Producto[] = [];
 
-  constructor() { }
-  crearProductos(productoComponent: ProductoComponent): ProductosService{
-    // Asigno el próximo ID ala nueva lista
-    productoComponent.id = ++this.ultimoId;
-    // Agrego el producto al array
-    this.productoComponent.push(productoComponent);
-    // Retorno el objeto con ID actualizado
-    return this;   
-   }
-   eliminarProducto(id: number): ProductosService{
-    // REemplazo la lista de productos por otro array resultante
-    //del filtro que excluye el producto por ID
-    this.productoComponent = this.productoComponent.filter(productoComponent => productoComponent.id !== id );
-    return this;
+  private apiUrl = 'http://localhost:8080/producto/lista';
+  private urlAlta = 'http://localhost:8080/producto/alta';
+  private urlModificar = 'http://localhost:8080/producto/editar';
+  //private urlEliminar = 'http://localhost:8080/producto/delete';
+
+  constructor(private http: HttpClient) { }
+  
+
+  getProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.apiUrl);
   }
-  obtenerProducto(id: number): ProductoComponent | undefined{
-    // La función pop() retorna la tarea resultante del filtro por id
-    // En caso que no exista, retorna undefined
-    return this.productoComponent
-        .filter(productoComponent => productoComponent.id === id)
-        .pop();
+  
+  
+
+  crearProducto(producto: Producto): Observable<any> {
+    return this.http.post(this.urlAlta, producto);
   }
-  modificarProducto(id: number, values: Object = {}): ProductoComponent | undefined{
-    // Obtengo la tarea por ID
-    let productoComponent = this.obtenerProducto(id);
-    if (!productoComponent){
-      // No la encontré
-      return undefined;
-    }    
-    // Actualizo la tarea con los valores recibidos en el parámetro
-    Object.assign(productoComponent, values);
-    // Retorno la tarea
-    return productoComponent;
+
+  agregarProducto(producto: Producto): void {
+    this.productos.push(producto);
   }
+
+  actualizar(id: number, params: HttpParams): Observable<any> {
+    return this.http.put(`${this.urlModificar}/${id}`, {}, { params });
+  }
+
+  /*
+  eliminar(id: number): Observable<any> {
+    return this.http.delete(`${this.urlEliminar}/${id}`);
+  */
+  
 }
+
