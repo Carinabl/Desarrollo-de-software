@@ -1,0 +1,54 @@
+<!-- Modal -->
+  <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Nueva Oferta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="frmOferta" (submit)="onSubmit()" id="frmOferta">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Stock</label>
+            <input type="text" formControlName="stock" class="form-control" id="stock" placeholder="Ingrese el stock del producto">
+            <div class="alert alert-danger" *ngIf="frmOferta.controls['stock'].invalid && frmOferta.controls['stock'].touched">
+              <div *ngIf="frmOferta.controls['stock']?.hasError('required')">El stock es obligatorio</div>
+              <div *ngIf="frmOferta.controls['stock']?.hasError('pattern')">El stock debe tener al menos 1 dígito</div> 
+             </div>
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Precio</label>
+            <input type="text" formControlName="precio" class="form-control" id="precio" placeholder="Ingrese el precio del producto">
+            <div class="alert alert-danger" *ngIf="frmOferta.controls['precio'].invalid && frmOferta.controls['precio'].touched">
+              <div *ngIf="frmOferta.controls['precio']?.hasError('required')">El precio es obligatorio</div>
+              <div *ngIf="frmOferta.controls['precio']?.hasError('pattern')">El precio debe tener al menos 1 dígito</div> 
+             </div>
+          </div>
+          <div class="col-12">
+            <label for="formGroupExampleInput2" class="form-label">Fecha de vigencia</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker"/>
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div> 
+          <div class="col-12">
+            <label for="formGroupExampleInput2" class="form-label">Descripcion</label>
+            <div class="input-group">
+                <textarea class="form-control" placeholder="descripcion" name="dp"></textarea>
+            </div>
+          </div> 
+        </div>
+        <div class="col-12">
+          <!-- Enlace que redirige a la página de productos -->
+          <a routerLink="/listaProductos">Seleccionar Producto</a>
+        </div>
+
+        </form>
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="Submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

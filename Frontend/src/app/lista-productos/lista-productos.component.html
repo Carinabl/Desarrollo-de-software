@@ -1,0 +1,83 @@
+
+<div class="container">
+  <div class="container d-flex justify-content-between mb-4 mt-4">
+    <h1>Lista de  productos</h1>
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+    <app-form-producto></app-form-producto>
+  </div>
+  <table class="table table-striped table-hover mt-4 text-center align-middle">
+    <thead>
+      <tr class="text-center ">
+        <!--<th>Seleccion</th>-->
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!--se agrega un identificador unico a cada producto para que luego la oferta lo seleccione-->
+      <tr *ngFor="let producto of productos" [id]="'producto-' + producto.id">
+        <!--<td>
+           Checkbox para seleccionar el producto 
+          <input type="checkbox" (change)="seleccionarProducto(producto)" />
+        </td>-->
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>
+          <div class="d-flex justify-content-end">
+             <!--editar--> 
+            <button (click)="editarProducto(producto.id)" type="button" class="btn btn-outline-dark m-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <!--eliminar-->
+            <app-cuadro></app-cuadro>
+            
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+
+
+<!-- Modal para editar-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
+        <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #productoForm="ngForm" class="row g-3">
+
+          <div class="col-6">
+            <label for="nombreInput" class="form-label">Nombre</label>
+            <input 
+              name="nombre" 
+              type="text" 
+              class="form-control" 
+              id="nombreInput" 
+              placeholder="Ingrese el nombre" 
+              [(ngModel)]="productoSeleccionado.nombre">
+          </div>
+          <div class="col-6">
+            <label for="descripcionInput" class="form-label">Descripcion</label>
+            <textarea 
+              name="descripcion" 
+              class="form-control" 
+              id="descripcion" 
+              placeholder="Ingrese la descripcion" 
+              [(ngModel)]="productoSeleccionado.descripcion"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      <!--boton guardar-->
+      <button (click)="guardar()" type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
