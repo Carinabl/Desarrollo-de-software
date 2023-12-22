@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Cliente } from '../interfaces/Cliente';
 
 @Component({
   selector: 'app-cliente',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./cliente.component.css']
 })
 export class ClienteComponent {
-
+    @Input() cliente: Cliente = {
+      id: 0,
+      nombre: '',
+      apellido: '',
+      direccion: ''
+    }
 }

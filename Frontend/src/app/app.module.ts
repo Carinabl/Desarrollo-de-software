@@ -19,6 +19,7 @@ import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CuadroComponent } from './cuadro/cuadro.component';
 import { ClienteComponent } from './compPrincipal/cliente/cliente.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
   {path: 'producto', component: ListaProductosComponent }
@@ -39,7 +40,8 @@ const routes: Routes = [
     VentaComponent,
     ListaVentasComponent,
     CuadroComponent,
-    ClienteComponent
+    ClienteComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

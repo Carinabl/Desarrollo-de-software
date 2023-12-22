@@ -8,9 +8,10 @@ import { Venta } from '../interfaces/venta';
 })
 export class VentaComponent {
   venta: Venta = {
-   id: 1,
-   fecha: '01/01/2024',
+   id: 0,
+   fecha: '',
    descripcion: '',
-   montoTotal: 10.00
+   montoTotal: 10.00,
+   id_cliente: 0
   }
 }

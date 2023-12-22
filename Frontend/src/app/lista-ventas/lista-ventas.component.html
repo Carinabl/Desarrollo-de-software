@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Lista de ventas</h1>
+    <h1 class="mt-4">Lista de ventas</h1>
     
     <table class="table table-striped table-hover mt-4 text-center align-middle">
       <thead>
@@ -14,11 +14,11 @@
         <tr *ngFor="let venta of ventas">
           <td>{{ venta.fecha }}</td>
           <td>{{ venta.descripcion }}</td>
-          <td>{{ venta.montoTotal }}</td>
+          <td>$ {{ venta.montoTotal }}</td>
           <td>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-center">
                <!--ver cliente--> 
-              <button  type="button" class="btn btn-outline-dark m-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button (click)="verCliente(venta)" type="button" class="btn btn-outline-dark m-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-eye"></i>
               </button>
             </div>
@@ -40,10 +40,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
   
-        <div  class="modal-body" >
-          <p>Nombre del cliente</p>
-          <p>Apellido del cliente</p>
-          <p>Direccion del cliente</p>
+        <div class="modal-body">
+          <p>Nombre: {{ obtenerNombreCliente() }}</p>
+          <p>Apellido: {{ obtenerApellidoCliente() }}</p>
+          <p>Direccion: {{ obtenerDireccionCliente() }}</p>
         </div>
   
       </div>

@@ -1,0 +1,61 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Boton modal Producto
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Nuevo Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="frmProducto" (submit)="onSubmit()" id="frmProducto">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Producto</label>
+            <input type="text" formControlName="nombre"  class="form-control" id="nombre" placeholder="Ingrese nombre del producto">
+            <div class="alert alert-danger" *ngIf="frmProducto.controls['nombre'].invalid && frmProducto.controls['nombre'].touched">
+             <div *ngIf="frmProducto.controls['nombre']?.hasError('required')">El nombre es obligatorio</div>
+             <div *ngIf="frmProducto.controls['nombre']?.hasError('minlength')">El nombre debe tener al menos 5 caracteres</div> 
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="codigo" class="form-label">Código</label>
+            <input type="text" formControlName="codigo" class="form-control" id="codigo" placeholder="Ingrese el código del producto">
+            <div class="alert alert-danger" *ngIf="frmProducto.controls['codigo'].invalid && frmProducto.controls['codigo'].touched">
+              <div *ngIf="frmProducto.controls['codigo']?.hasError('required')">El código es obligatorio</div>
+              <div *ngIf="frmProducto.controls['codigo']?.hasError('pattern')">El código debe tener al menos 3 números</div> 
+             </div>
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <input type="text" formControlName="descripcion" class="form-control" id="descripcion" placeholder="Ingrese una descripción">
+            <div class="alert alert-danger" *ngIf="frmProducto.controls['descripcion'].invalid && frmProducto.controls['descripcion'].touched">
+              <div *ngIf="frmProducto.controls['descripcion']?.hasError('required')">La descripción es obligatoria</div>
+             </div>
+          </div>
+        
+          <div class="col-md-4">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" class="form-select">
+              <option selected>Seleccionar</option>
+              <option>Hogar y mueble</option>
+              <option>Deporte</option>
+              <option>Tecnología</option>
+              <option>Moda</option>
+              <option>Herramientas</option>
+            </select>
+            
+          </div>
+        </div>
+      </form>
+      {{frmProducto.status}}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" form="frmProducto" class="btn btn-primary" [disabled]="!frmProducto.valid">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

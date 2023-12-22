@@ -3,6 +3,12 @@ import { ProductosService } from '../compPrincipal/producto/productos.service';
 import { Producto } from '../compPrincipal/interfaces/Producto';
 import { HttpParams } from '@angular/common/http';
 import { OfertaProductoService } from '../oferta-producto.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BusquedaService } from '../busqueda.service';
+import { ActivatedRoute } from '@angular/router';
+import { OfertaService } from '../compPrincipal/oferta/oferta.service';
+import { Oferta } from '../compPrincipal/interfaces/oferta';
+import { ListaOfertasService } from '../lista-ofertas.service';
 
 
 @Component({
@@ -13,11 +19,31 @@ import { OfertaProductoService } from '../oferta-producto.service';
 export class ListaProductosComponent {
   productos: Producto[] = [];
   productoSeleccionado: Producto= { id: 0, nombre: '', descripcion: '' };
-
-
-  constructor(private productoService: ProductosService, private ofertaProductoService: OfertaProductoService) {}
+  
+  ofertas: Oferta[] = [];
+  ofertaSeleccionada: Oferta = { id: 0, stock: 0, descripcion:'', precio: 0, vigencia:''};
+  
+  constructor(
+    private productoService: ProductosService, 
+    private ofertaProductoService: OfertaProductoService, 
+    private modalService: NgbModal,
+    private busquedaService: BusquedaService,
+    private route: ActivatedRoute,
+    private ofertaService: OfertaService,
+    private listaOfertasService: ListaOfertasService
+    ) {
+      this.ofertas = ofertaService.getListaOfertas();
+    }
   
   ngOnInit() {
+    this.busquedaService.searchTerm$.subscribe(searchTerm => {
+      if (searchTerm) {
+        this.filtrarProductos(searchTerm);
+      } else {
+        this.cargarListaProductos();
+      }
+    });
+
     //consigue la lista de productos para mostrar en la tabla
     this.productoService.getProductos().subscribe((productos: Producto[]) => {
       console.log("Productos: ", productos);
@@ -48,6 +74,9 @@ export class ListaProductosComponent {
           console.log('Respuesta del servidor:', response);
           // Recargar la lista de productos
           this.cargarListaProductos();
+
+          // Cierra el modal después de guardar
+          this.modalService.dismissAll();
         },
         error: (error) => {
           console.error('Error al actualizar el producto:', error);
@@ -66,5 +95,34 @@ export class ListaProductosComponent {
     // Almacena el producto seleccionado para su posterior uso en la creación de la oferta
     this.ofertaProductoService.enviarProductoSeleccionado(producto);
   }
-  
+
+
+   // Función para filtrar productos en la barra de búsqueda
+   filtrarProductos(searchTerm: string): void {
+    this.productoService.getProductos().subscribe((productos: Producto[]) => {
+      this.productos = productos.filter(producto =>
+        producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  } 
+
+
+
+
+
+  //esta parte estaba en la oferta anteriormente... debería reverse
+   // Call the guardarOferta method without passing any arguments
+   guardarOferta(): void {
+    if (this.ofertaSeleccionada) {
+      // Save the edited product using the service method
+      this.listaOfertasService.guardarOferta();
+
+      // Optionally, update the local products list
+      const updatedOffers = this.ofertas.map(oferta => {
+        return oferta.id === this.ofertaSeleccionada?.id ? { ...this.ofertaSeleccionada } : oferta;
+      });
+      this.ofertas = [...updatedOffers];
+    }
+  }
 }

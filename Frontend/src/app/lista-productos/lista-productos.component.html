@@ -25,14 +25,14 @@
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-center">
              <!--editar--> 
-            <button (click)="editarProducto(producto.id)" type="button" class="btn btn-outline-dark m-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button (click)="editarProducto(producto.id)" type="button" class="btn btn-outline-dark m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="bi bi-pencil-square"></i>
             </button>
             <!--eliminar-->
             <app-cuadro></app-cuadro>
-            
+            <button type="button" class="btn btn-outline-dark m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">+</button>
           </div>
         </td>
       </tr>
@@ -42,7 +42,7 @@
 </div>
 
 
-<!-- Modal para editar-->
+<!-- Modal para editar producto-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,6 +78,81 @@
       <!--boton guardar-->
       <button (click)="guardar()" type="button" class="btn btn-primary">Guardar</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal para editar oferta-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar oferta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div  class="modal-body" >
+        <form #productoForm="ngForm" class="row g-3">
+          <div class="col-6">
+            <label for="nombreInput" class="form-label">Stock</label>
+            <input 
+              name="stock" 
+              type="text" 
+              class="form-control" 
+              id="stockInput" 
+              placeholder="ingrese el stock" 
+              [(ngModel)]="ofertaSeleccionada && ofertaSeleccionada.stock">
+          </div>
+
+          <div class="col-6">
+            <label for="descripcionInput" class="form-label">Descripcion</label>
+            <textarea 
+              name="descripcion" 
+              class="form-control" 
+              id="descripcion" 
+              placeholder="ingrese la descripcion" 
+              [(ngModel)]="ofertaSeleccionada && ofertaSeleccionada.descripcion"></textarea>
+          </div>
+          
+          <div class="col-6">
+              <label for="precioInput" class="form-label">Precio</label>
+              <input 
+                name="precio" 
+                type="text" 
+                class="form-control" 
+                id="precioInput" 
+                placeholder="ingrese el precio" 
+                [(ngModel)]="ofertaSeleccionada && ofertaSeleccionada.precio">
+            </div>
+
+            <div class="col-6">
+              <label for="vigenciaInput" class="form-label">Vigencia</label>
+              <input 
+                name="vigencia" 
+                type="text" 
+                class="form-control" 
+                id="vigenciaInput" 
+                placeholder="ingrese la vigencia" 
+                [(ngModel)]="ofertaSeleccionada && ofertaSeleccionada.vigencia">
+            </div>
+          
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-dark" (click)="guardarOferta()">Guardar</button>
+        <!--
+          boton real
+          <button type="Submit" form="frmOferta" class="btn btn-primary">Guardar</button>
+        -->
+      </div>
+
     </div>
   </div>
 </div>

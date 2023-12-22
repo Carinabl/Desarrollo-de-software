@@ -16,4 +16,10 @@ export class AppComponent {
   this.modalService.open(modal);
  
   }
+
+  handleSearch(value: string){
+    console.log(value);
+  }
+
+
 }

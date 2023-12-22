@@ -4,6 +4,7 @@ import { Producto } from '../compPrincipal/interfaces/Producto';
 import { ProductosService } from '../compPrincipal/producto/productos.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-form-producto',
   templateUrl: './form-producto.component.html',
