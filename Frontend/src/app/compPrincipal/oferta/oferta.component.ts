@@ -12,7 +12,8 @@ import { Oferta } from '../interfaces/oferta';
       stock: 10,
       descripcion: '',
       precio: 20.00,
-      vigencia: ''
+      vigencia: '',
+      producto_id: 0
   }
   
 }

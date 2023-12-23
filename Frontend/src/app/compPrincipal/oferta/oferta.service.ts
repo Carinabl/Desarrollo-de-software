@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { OfertaComponent } from './oferta.component';
 import { Oferta } from '../interfaces/oferta';
+import { Producto } from '../interfaces/Producto';
+import { ListaProductosComponent } from 'src/app/lista-productos/lista-productos.component';
+import { ProductoComponent } from '../producto/producto.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,33 +14,16 @@ export class OfertaService {
   ultimoId: number=0;
   private ofertas: Oferta[] = [];
   
-  constructor() { 
-    this.agregarOferta(
-      {
-        id: 1,
-        stock: 10,
-        descripcion: "libro de aventuras",
-        precio: 5000.00,
-        vigencia: '02/03/2024'
-      }
-    )
-    this.agregarOferta(
-      {
-        id: 2,
-        stock: 10,
-        descripcion: "libro de terror",
-        precio: 6000.00,
-        vigencia: '02/02/2024'
-      }
-    )
-  }
+  constructor() { }
   
 
   getListaOfertas(): Oferta[] {
     return this.ofertas;
   }
 
-  agregarOferta(oferta: Oferta): void {
+  agregarOferta(oferta: Oferta, producto: Producto): void {
+    // Asocia la oferta con un producto específico
+    oferta.producto_id = producto.id;
     this.ofertas.push(oferta);
   }
 }

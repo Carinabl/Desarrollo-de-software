@@ -12,7 +12,7 @@ import { OfertaService } from '../compPrincipal/oferta/oferta.service';
 export class ListaOfertasComponent implements OnInit{
  
   ofertas: Oferta[] = [];
-  ofertaSeleccionada: Oferta = { id: 0, stock: 0, descripcion:'', precio: 0, vigencia:''};
+  ofertaSeleccionada: Oferta = { id: 0, stock: 0, descripcion:'', precio: 0, vigencia:'', producto_id: 0};
 
   constructor(private ofertaService: OfertaService, private listaOfertasService: ListaOfertasService) {
     this.ofertas = ofertaService.getListaOfertas();

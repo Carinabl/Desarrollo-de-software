@@ -4,4 +4,5 @@ export interface Oferta {
     descripcion: string;
     precio: number;
     vigencia: string;
+    producto_id: number;
 }

@@ -21,7 +21,7 @@ export class ListaProductosComponent {
   productoSeleccionado: Producto= { id: 0, nombre: '', descripcion: '' };
   
   ofertas: Oferta[] = [];
-  ofertaSeleccionada: Oferta = { id: 0, stock: 0, descripcion:'', precio: 0, vigencia:''};
+  ofertaSeleccionada: Oferta = { id: 0, stock: 0, descripcion:'', precio: 0, vigencia:'', producto_id: 0};
   
   constructor(
     private productoService: ProductosService, 
@@ -109,20 +109,30 @@ export class ListaProductosComponent {
 
 
 
+    //relacion con la oferta
+    agregarOfertaAProducto(id: number): void {
+      //obtener el producto
+      const productoElegido = this.productos.find(p => p.id === id);
+      if (productoElegido) {
+        this.productoSeleccionado = productoElegido;
+        console.log(this.productoSeleccionado);
+      } else {
+        console.error(`No se encontró un producto con ID ${id}`);
+      }
+      console.log("ID del producto seleccionado", this.productoSeleccionado.id);
+      // Llama al servicio para agregar una nueva oferta al producto específico
+      this.ofertaService.agregarOferta(
+        {
+          id: this.ofertaService.ultimoId + 1,
+          stock: 10,
+          descripcion: "Nueva oferta para el producto",
+          precio: 100.00,
+          vigencia: '01/01/2025',
+          producto_id: this.productoSeleccionado.id
+        },
+        this.productoSeleccionado
+      );
 
-
-  //esta parte estaba en la oferta anteriormente... debería reverse
-   // Call the guardarOferta method without passing any arguments
-   guardarOferta(): void {
-    if (this.ofertaSeleccionada) {
-      // Save the edited product using the service method
-      this.listaOfertasService.guardarOferta();
-
-      // Optionally, update the local products list
-      const updatedOffers = this.ofertas.map(oferta => {
-        return oferta.id === this.ofertaSeleccionada?.id ? { ...this.ofertaSeleccionada } : oferta;
-      });
-      this.ofertas = [...updatedOffers];
-    }
+      
   }
 }
